@@ -1,8 +1,7 @@
 package net.namibsun.johannesbucher.api;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.HttpURLConnection;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Main {
 
@@ -11,9 +10,11 @@ public class Main {
         String url = "https://tippspiel.johannes-bucher.de/";
         System.out.println(url);
 
-        CookieManager cookieManager = new CookieManager();
-        CookieHandler.setDefault(cookieManager);
-
+        try {
+            System.out.println(Unirest.get(url).asString().getBody());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
 
 
     }
