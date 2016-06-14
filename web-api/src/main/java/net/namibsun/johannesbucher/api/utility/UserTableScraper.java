@@ -37,32 +37,34 @@ public class UserTableScraper {
             String previousStandings = tableData.getValue2()[i];
 
             int[] previousPositions = UserTableScraper.parsePreviousStandings(previousStandings);
-
-            String[] userTableData = profile.toString().split("<td");
-
-            int position = Integer.parseInt(userTableData[2].split("<b>")[1].split("</b>")[0]);
-
-            String username = userTableData[4]
-                    .split("<a href=\"profile\\.php\\?")[1]
-                    .split("\">")[1]
-                    .split("</a>")[0];
-
-            int points = Integer.parseInt(userTableData[5].split(">", 2)[1].split("</td>")[0]);
-            float averagePoints = Float.parseFloat(userTableData[6].split(">", 2)[1].split("</td>")[0]);
-            int amountOfBets = Integer.parseInt(userTableData[7].split(">", 2)[1].split("</td>")[0]);
-
-            UserTableEntry userEntry = new UserTableEntry(
-                    username,
-                    position,
-                    previousPositions,
-                    points,
-                    averagePoints,
-                    amountOfBets);
-            table.addUser(userEntry);
+            table.addUser(UserTableScraper.parseTableEntry(profile, previousPositions));
 
         }
 
         return table;
+    }
+
+    private static UserTableEntry parseTableEntry(Element profile, int[] previousPositions) {
+        String[] userTableData = profile.toString().split("<td");
+
+        int position = Integer.parseInt(userTableData[2].split("<b>")[1].split("</b>")[0]);
+
+        String username = userTableData[4]
+                .split("<a href=\"profile\\.php\\?")[1]
+                .split("\">")[1]
+                .split("</a>")[0];
+
+        int points = Integer.parseInt(userTableData[5].split(">", 2)[1].split("</td>")[0]);
+        float averagePoints = Float.parseFloat(userTableData[6].split(">", 2)[1].split("</td>")[0]);
+        int amountOfBets = Integer.parseInt(userTableData[7].split(">", 2)[1].split("</td>")[0]);
+
+        return new UserTableEntry(
+                username,
+                position,
+                previousPositions,
+                points,
+                averagePoints,
+                amountOfBets);
     }
 
     /**
@@ -94,28 +96,33 @@ public class UserTableScraper {
         }
         assert profileElements.size() == otherStatistics.size();
 
-        //Check the previous table standings
-        ArrayList<String> rawPreviousGames = new ArrayList<>(Arrays.asList(ranks.toString()
+        String[] previousGames = UserTableScraper.preparePreviousStandings(ranks, profileElements.size());
+
+
+        return new Triplet<>(profileElements, otherStatistics, previousGames);
+
+    }
+
+    private static String[] preparePreviousStandings(Document rankDocument, int userCount) {
+        ArrayList<String> rawPreviousGames = new ArrayList<>(Arrays.asList(rankDocument.toString()
                 .split("series: \\[\\{")[1]
                 .split("}\\);\n}\\);")[0]
                 .split("name: '")));
         rawPreviousGames.remove(0);
-        String[] previousGames = new String[profileElements.size()];
+        String[] previousGames = new String[userCount];
 
         int counter = -1;
         for (String gameElement : rawPreviousGames) {
             if (gameElement.contains("color") && gameElement.contains("data")) {
                 counter++;
                 previousGames[counter] = ""; //gameElement;  If we want to check if the username is correct,
-                                             //              but breaks parsePreviousStandings()
+                //              but breaks parsePreviousStandings()
             }
             else {
                 previousGames[counter] += gameElement;
             }
         }
-
-        return new Triplet<>(profileElements, otherStatistics, previousGames);
-
+        return previousGames;
     }
 
     private static int[] parsePreviousStandings(String previousStandings) {
