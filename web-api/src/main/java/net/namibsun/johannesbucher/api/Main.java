@@ -7,14 +7,10 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        try {
-            TippSpielConnection connection = new TippSpielConnection("namboy94", "");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        TippSpielConnection connection = new TippSpielConnection("namboy94", "");
+        connection.connect();
 
     }
 }
