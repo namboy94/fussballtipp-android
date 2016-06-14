@@ -1,5 +1,7 @@
 package net.namibsun.johannesbucher.api.utility;
 
+import net.namibsun.johannesbucher.api.utility.objects.UserTable;
+import net.namibsun.johannesbucher.api.utility.objects.UserTableEntry;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,9 +10,18 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Map;
 
-public class Scraper {
+/**
+ * Class that scrapes the user table displayed by rank.php
+ */
+public class UserTableScraper {
 
-    public static String[] getCurrentTable(Map<String, String> cookies) {
+    /**
+     * Gets the current table information as a UserTable object
+     * @param cookies the authenticated cookie to be used to log in
+     * @return the current table
+     */
+    public static UserTable getCurrentTable(Map<String, String> cookies) {
+
         Document ranks = null;
         try {
             ranks = Jsoup.connect("https://tippspiel.johannes-bucher.de/rank.php").cookies(cookies).get();
@@ -27,6 +38,9 @@ public class Scraper {
                 profileElements.add(element);
             }
         }
+
+        UserTable table = new UserTable();
+
         for (Element element : profileElements) {
 
             String[] userTableData = element.toString().split("<td");
@@ -43,11 +57,17 @@ public class Scraper {
             String averagePoints = userTableData[6].split(">", 2)[1].split("</td>")[0];
             String amountOfBets = userTableData[7].split(">", 2)[1].split("</td>")[0];
 
-            System.out.println(position + " " + previousPosition + " " + username + " " + points);
-            System.out.println(averagePoints + " " + amountOfBets);
+            UserTableEntry userEntry = new UserTableEntry(
+                    position,
+                    previousPosition,
+                    username,
+                    points,
+                    averagePoints,
+                    amountOfBets);
+            table.addUser(userEntry);
         }
 
-        return null;
+        return table;
 
     }
 }
