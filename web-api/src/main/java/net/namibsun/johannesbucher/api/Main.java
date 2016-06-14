@@ -11,6 +11,6 @@ public class Main {
 
         TippSpielConnection connection = new TippSpielConnection("namboy94", "");
         connection.connect();
-
+        connection.getCurrentTable();
     }
 }
