@@ -2,12 +2,15 @@ package net.namibsun.johannesbucher.api.utility;
 
 import net.namibsun.johannesbucher.api.utility.objects.UserTable;
 import net.namibsun.johannesbucher.api.utility.objects.UserTableEntry;
+import org.javatuples.Triplet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -22,52 +25,121 @@ public class UserTableScraper {
      */
     public static UserTable getCurrentTable(Map<String, String> cookies) {
 
-        Document ranks = null;
-        try {
-            ranks = Jsoup.connect("https://tippspiel.johannes-bucher.de/rank.php").cookies(cookies).get();
-        } catch (IOException e) {
-            return null;
-        }
-
-        //System.out.println(ranks.toString());
-        Elements elements = ranks.select("tr");
-        Elements profileElements = new Elements();
-
-        for (Element element : elements) {
-            if (element.toString().contains("profile.php")) {
-                profileElements.add(element);
-            }
-        }
-
+        Triplet<Elements, Elements, String[]> tableData = UserTableScraper.fetchTableData(cookies);
         UserTable table = new UserTable();
 
-        for (Element element : profileElements) {
+        assert tableData != null;
+        Elements profileElements = tableData.getValue0();
 
-            String[] userTableData = element.toString().split("<td");
+        for (int i = 0; i < tableData.getValue0().size(); i++) {
+            Element profile = tableData.getValue0().get(i);
+            Element additionalStats = tableData.getValue1().get(i);
+            String previousStandings = tableData.getValue2()[i];
 
-            String position = userTableData[2].split("<b>")[1].split("</b>")[0];
-            String previousPosition = userTableData[3].split("\\(")[1].split("\\)")[0];
+            int[] previousPositions = UserTableScraper.parsePreviousStandings(previousStandings);
+
+            String[] userTableData = profile.toString().split("<td");
+
+            int position = Integer.parseInt(userTableData[2].split("<b>")[1].split("</b>")[0]);
 
             String username = userTableData[4]
                     .split("<a href=\"profile\\.php\\?")[1]
                     .split("\">")[1]
                     .split("</a>")[0];
 
-            String points = userTableData[5].split(">", 2)[1].split("</td>")[0];
-            String averagePoints = userTableData[6].split(">", 2)[1].split("</td>")[0];
-            String amountOfBets = userTableData[7].split(">", 2)[1].split("</td>")[0];
+            int points = Integer.parseInt(userTableData[5].split(">", 2)[1].split("</td>")[0]);
+            float averagePoints = Float.parseFloat(userTableData[6].split(">", 2)[1].split("</td>")[0]);
+            int amountOfBets = Integer.parseInt(userTableData[7].split(">", 2)[1].split("</td>")[0]);
 
             UserTableEntry userEntry = new UserTableEntry(
-                    position,
-                    previousPosition,
                     username,
+                    position,
+                    previousPositions,
                     points,
                     averagePoints,
                     amountOfBets);
             table.addUser(userEntry);
+
         }
 
         return table;
+    }
 
+    /**
+     * Fetches the table data and returns it as a triplet
+     * @param cookies the cookie that holds the authentication data
+     * @return The normal table elements, additional statistics, information about previous placements
+     */
+    private static Triplet<Elements, Elements, String[]> fetchTableData(Map<String, String> cookies) {
+
+        Document ranks;
+        try {
+            ranks = Jsoup.connect("https://tippspiel.johannes-bucher.de/rank.php").cookies(cookies).get();
+        } catch (IOException e) {
+            return null;
+        }
+
+        Elements elements = ranks.select("tr");
+        Elements profileElements = new Elements();
+        Elements otherStatistics = new Elements();
+
+        // Check for table rows and additional statistics statistics
+        for (Element element : elements) {
+            if (element.toString().contains("profile.php")) {
+                profileElements.add(element);
+            }
+            else if (element.toString().contains("<td style=\"text-align: left\">")) {
+                otherStatistics.add(element);
+            }
+        }
+        assert profileElements.size() == otherStatistics.size();
+
+        //Check the previous table standings
+        ArrayList<String> rawPreviousGames = new ArrayList<>(Arrays.asList(ranks.toString()
+                .split("series: \\[\\{")[1]
+                .split("}\\);\n}\\);")[0]
+                .split("name: '")));
+        rawPreviousGames.remove(0);
+        String[] previousGames = new String[profileElements.size()];
+
+        int counter = -1;
+        for (String gameElement : rawPreviousGames) {
+            if (gameElement.contains("color") && gameElement.contains("data")) {
+                counter++;
+                previousGames[counter] = ""; //gameElement;  If we want to check if the username is correct,
+                                             //              but breaks parsePreviousStandings()
+            }
+            else {
+                previousGames[counter] += gameElement;
+            }
+        }
+
+        return new Triplet<>(profileElements, otherStatistics, previousGames);
+
+    }
+
+    private static int[] parsePreviousStandings(String previousStandings) {
+
+        if (previousStandings == null) {
+            return new int[]{};
+        }
+
+        ArrayList<Integer> standings = new ArrayList<>();
+
+        for (String standing : previousStandings.split("y: ")) {
+            try {
+                String standingString = standing.split(",")[0];
+                standings.add(new Integer(standingString));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
+        int[] standingsArray = new int[standings.size()];
+
+        for (int i = 0; i < standings.size(); i++) {
+            standingsArray[standings.size() - i - 1] = standings.get(i);
+        }
+
+        return standingsArray;
     }
 }

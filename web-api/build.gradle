@@ -38,5 +38,6 @@ jar {
 //noinspection GroovyAssignabilityCheck
 dependencies {
     compile "org.jsoup:jsoup:1.9.2"
+    compile "org.javatuples:javatuples:1.2"
     testCompile 'junit:junit:4.12'
 }

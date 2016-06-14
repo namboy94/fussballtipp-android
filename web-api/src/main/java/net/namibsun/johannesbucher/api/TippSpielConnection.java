@@ -1,8 +1,7 @@
 package net.namibsun.johannesbucher.api;
 
-
-
-import net.namibsun.johannesbucher.api.utility.Scraper;
+import net.namibsun.johannesbucher.api.utility.UserTableScraper;
+import net.namibsun.johannesbucher.api.utility.objects.UserTable;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -74,7 +73,7 @@ public class TippSpielConnection {
      * authenticated cookie
      * @return the current table of the tippspiel
      */
-    public String[] getCurrentTable() {
-        return Scraper.getCurrentTable(this.cookies);
+    public UserTable getCurrentTable() {
+        return UserTableScraper.getCurrentTable(this.cookies);
     }
 }
