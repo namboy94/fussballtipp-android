@@ -1,7 +1,7 @@
 package net.namibsun.johannesbucher.api;
 
-
-
+import net.namibsun.johannesbucher.api.utility.UserTableScraper;
+import net.namibsun.johannesbucher.api.utility.objects.UserTable;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -14,7 +14,6 @@ import java.util.Map;
  */
 public class TippSpielConnection {
 
-    private String tippSpielUrl = "https://tippspiel.johannes-bucher.de/";
     private Map<String, String> cookies;
     private String username;
     private String password;
@@ -39,7 +38,7 @@ public class TippSpielConnection {
 
         //Log In
         Connection.Response loginResponse = Jsoup
-                .connect(this.tippSpielUrl + "login.php")
+                .connect("https://tippspiel.johannes-bucher.de/login.php")
                 .data("user_name", username, "user_pswd", password, "submit", "Log in")
                 .method(Connection.Method.POST).execute();
 
@@ -59,11 +58,22 @@ public class TippSpielConnection {
      */
     public boolean isConnected() {
         try {
-            String loginCheck = Jsoup.connect(this.tippSpielUrl + "rank.php").cookies(cookies).get().toString();
+            String loginCheck = Jsoup
+                    .connect("https://tippspiel.johannes-bucher.de/rank.php")
+                    .cookies(cookies).get().toString();
+
             return (!loginCheck.contains("Passwort vergessen?")); //This String only appears if you are not logged in.
         } catch (IOException e) {
             return false;
         }
     }
 
+    /**
+     * Wrapper method around the utils.Scraper.getCurrentTable method that supplies the method with the
+     * authenticated cookie
+     * @return the current table of the tippspiel
+     */
+    public UserTable getCurrentTable() {
+        return UserTableScraper.getCurrentTable(this.cookies);
+    }
 }
