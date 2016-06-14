@@ -28,9 +28,6 @@ version = 0.0
 
 //noinspection GroovyAssignabilityCheck
 jar {
-    manifest {
-        attributes 'Main-Class': 'net.namibsun.johannesbucher.api.Main'
-    }
     //This line is needed to compile a standalone jar, but breaks android builds.
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
