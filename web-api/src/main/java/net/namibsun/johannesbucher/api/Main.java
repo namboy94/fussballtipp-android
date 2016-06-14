@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        TippSpielConnection connection = new TippSpielConnection("namboy94", "");
+        TippSpielConnection connection = new TippSpielConnection("namboy94", Password.pass);
         connection.connect();
         connection.getCurrentTable();
     }

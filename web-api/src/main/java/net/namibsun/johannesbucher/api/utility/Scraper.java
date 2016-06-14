@@ -29,16 +29,22 @@ public class Scraper {
         }
         for (Element element : profileElements) {
 
-            String[] userTableData = element.toString().split("<td>");
+            String[] userTableData = element.toString().split("<td");
 
-            String username = userTableData[3]
+            String position = userTableData[2].split("<b>")[1].split("</b>")[0];
+            String previousPosition = userTableData[3].split("\\(")[1].split("\\)")[0];
+
+            String username = userTableData[4]
                     .split("<a href=\"profile\\.php\\?")[1]
                     .split("\">")[1]
                     .split("</a>")[0];
 
-            String points = userTableData[4].split("</td>")[0];
+            String points = userTableData[5].split(">", 2)[1].split("</td>")[0];
+            String averagePoints = userTableData[6].split(">", 2)[1].split("</td>")[0];
+            String amountOfBets = userTableData[7].split(">", 2)[1].split("</td>")[0];
 
-            System.out.println(username + points);
+            System.out.println(position + " " + previousPosition + " " + username + " " + points);
+            System.out.println(averagePoints + " " + amountOfBets);
         }
 
         return null;
