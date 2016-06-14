@@ -3,16 +3,15 @@ package net.namibsun.johannesbucher.api;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        String url = "https://tippspiel.johannes-bucher.de/";
-        System.out.println(url);
-
         try {
-            System.out.println(Unirest.get(url).asString().getBody());
-        } catch (UnirestException e) {
+            TippSpielConnection connection = new TippSpielConnection("namboy94", "");
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
