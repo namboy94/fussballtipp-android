@@ -2,7 +2,8 @@
 
 ![Logo](resources/logo/logo-readme.png)
 
-This is a library used to parse and display tippspiel.johannes-bucher.de.
+This is a library used to parse and display
+[tippspiel.johannes-bucher.de](https://tippspiel.johannes-bucher.de).
 
 ## Further Information
 
