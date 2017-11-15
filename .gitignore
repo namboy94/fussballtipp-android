@@ -1,3 +1,5 @@
-.idea/**
-johannes-bucher-tippspiel.iml
-web-api/web-api.iml
+.idea/
+*.iml
+gradle/
+.gradle/
+gradlew
