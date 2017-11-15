@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="logo.svg">
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/home/hermann/git/johannes-bucher-tippspiel/resources/logo/logo-readme.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -54,13 +57,13 @@
      id="layer1"
      transform="translate(0,-97)">
     <rect
-       style="fill:#72717c;fill-opacity:1;stroke:#000000;stroke-width:2.14100003;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.94974874"
+       style="fill:#72717c;fill-opacity:1;stroke:#000000;stroke-width:1.81295121;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.94974874"
        id="rect821"
-       width="170.25069"
-       height="170.78523"
-       x="15.768902"
-       y="111.24768"
-       ry="6.280838" />
+       width="144.16449"
+       height="144.61713"
+       x="28.144239"
+       y="124.98167"
+       ry="5.3184743" />
     <path
        sodipodi:type="star"
        style="fill:#529c00;fill-opacity:1;stroke:#000000;stroke-width:2.52403116;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.94974874"
@@ -76,8 +79,8 @@
        inkscape:rounded="1.53"
        inkscape:randomized="0"
        d="m 106.64053,198.84793 c -65.865579,114.88182 152.24473,26.41576 31.43251,80.6423 C 17.260824,333.71676 228.3233,229.54873 98.710614,202.40727 -30.902077,175.26582 120.63394,355.36353 31.728411,257.2212 -57.177114,159.07888 107.11446,327.62153 92.874997,195.96537 78.635532,64.309203 -45.820365,264.08177 20.045214,149.19994 85.910794,34.318119 -23.613909,242.65124 97.198308,188.42471 218.01053,134.19818 -10.443462,77.566707 119.16923,104.70816 248.78192,131.84961 16.800358,92.063903 105.70588,190.20623 c 88.90552,98.14233 72.16909,-136.630413 86.40856,-4.97425 14.23947,131.65617 -19.60832,-101.265871 -85.47391,13.61595 z"
-       inkscape:transform-center-x="-0.80305035"
-       inkscape:transform-center-y="-2.0247279"
-       transform="matrix(0.78509708,-0.15543242,0.15543242,0.78509708,-8.4036471,57.264339)" />
+       inkscape:transform-center-x="-0.68000448"
+       inkscape:transform-center-y="-1.7144946"
+       transform="matrix(0.66480273,-0.13161671,0.13161671,0.66480273,7.6754627,79.26978)" />
   </g>
 </svg>
