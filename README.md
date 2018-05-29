@@ -9,6 +9,7 @@ This is a library used to parse and display
 
 ## Further Information
 
+* [Changelog](CHANGELOG)
 * [License](LICENSE)
 * [Gitlab](https://gitlab.namibsun.net/namibsun/museum/johannes-bucher-tippspiel)
 * [Github](https://github.com/namboy94/johannes-bucher-tippspiel)
