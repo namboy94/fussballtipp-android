@@ -1,0 +1,62 @@
+/*
+Copyright 2018 Hermann Krumrey <hermann@krumreyh.com>
+
+This file is part of fussballtipp-android.
+
+fussballtipp-android is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+fussballtipp-android is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+ext {
+    version = new File("$rootDir/version").text
+    majorVersion = version.split("\\.")[0].padLeft(2, "0")
+    minorVersion = version.split("\\.")[1].padLeft(2, "0")
+    patchVersion = version.split("\\.")[2].padLeft(2, "0")
+    versionCode = (majorVersion + minorVersion + patchVersion).toInteger()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
+    }
+}
+
+subprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    apply plugin: 'com.android.application'
+    apply plugin: 'kotlin-android'
+
+    dependencies {
+        api "org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.41"
+        api "org.jetbrains.anko:anko-commons:0.10.5"
+        api 'com.android.support:appcompat-v7:27.1.1'
+        api 'com.android.support:support-v4:27.1.1'
+        api 'com.android.support:cardview-v7:27.1.1'
+    }
+
+    apply from: "$rootDir/gradle-config/jacoco.gradle"
+    apply from: "$rootDir/gradle-config/dokka.gradle"
+    apply from: "$rootDir/gradle-config/ktlint.gradle"
+}
+
+apply from: "$rootDir/gradle-config/version.gradle"

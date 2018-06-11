@@ -1,16 +1,15 @@
-# Johannes Bucher Tippspiel
+# fussballtipp-android
 
-[![pipeline status](https://gitlab.namibsun.net/namibsun/museum/johannes-bucher-tippspiel/badges/master/pipeline.svg)](https://gitlab.namibsun.net/namibsun/museum/johannes-bucher-tippspiel/commits/master)
+[![pipeline status](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/badges/master/pipeline.svg)](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/commits/master)
 
 ![Logo](resources/logo/logo-readme.png)
 
-This is a library used to parse and display
-[tippspiel.johannes-bucher.de](https://tippspiel.johannes-bucher.de).
+This is an Android client for fussball-tipp.eu.
 
 ## Further Information
 
 * [Changelog](CHANGELOG)
 * [License](LICENSE)
-* [Gitlab](https://gitlab.namibsun.net/namibsun/museum/johannes-bucher-tippspiel)
-* [Github](https://github.com/namboy94/johannes-bucher-tippspiel)
-* [Progstats](https://progstats.namibsun.net/projects/johannes-bucher-tippspiel)
+* [Gitlab](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android)
+* [Github](https://github.com/namboy94/fussballtipp-android)
+* [Progstats](https://progstats.namibsun.net/projects/fussballtipp-android)

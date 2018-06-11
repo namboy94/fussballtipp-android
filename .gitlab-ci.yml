@@ -1,5 +1,27 @@
 stages:
+  - test
   - stats
+  - release
+
+lint:
+  stage: test
+  tags:
+    - android-sdk-26
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-ktlint
+
+unittest:
+  stage: test
+  tags:
+    - android-sdk-26
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-jacoco app
 
 gitstats:
   stage: stats
@@ -10,3 +32,51 @@ gitstats:
   script:
     - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
     - gitstats-gen
+
+docgen:
+  stage: stats
+  tags:
+    - android-sdk-26
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-dokka app
+
+build_app:
+  stage: test
+  only:
+    - master
+    - develop
+  tags:
+    - openjdk-8
+    - android-sdk-26
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-build-android app
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - artifacts/
+
+release_upload:
+  stage: release
+  only:
+    - master
+  tags:
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - github-release-upload $(cat version) "$(changelog-reader)"
+    - gitlab-release-upload $(cat version) "$(changelog-reader)"
+
+upload_play_store:
+  stage: release
+  only:
+    - master
+  tags:
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - play-upload net.namibsun.fussballtipp production
