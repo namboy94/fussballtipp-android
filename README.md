@@ -1,6 +1,8 @@
 # fussballtipp-android
 
-[![pipeline status](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/badges/master/pipeline.svg)](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/commits/master)
+|master|develop|
+|:----:|:-----:|
+|[![build status](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/badges/master/build.svg)](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/commits/master)|[![build status](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/badges/develop/build.svg)](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/commits/develop)|
 
 ![Logo](resources/logo/logo-readme.png)
 
