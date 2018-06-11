@@ -17,13 +17,15 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'net.namibsun.fussballtipp.lib.MainKt'
-    }
-    from {
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+apply plugin: "kotlin"
+jar {}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.41"
+    compile "org.apache.httpcomponents:httpclient:4.5"
+    compile 'org.jsoup:jsoup:1.11.3'
 }
+
+apply from: "$rootDir/gradle-config/dokka.gradle"
+apply from: "$rootDir/gradle-config/ktlint.gradle"
+apply from: "$rootDir/gradle-config/jacoco.gradle"

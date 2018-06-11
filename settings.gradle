@@ -19,5 +19,5 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 
 
 rootProject.name = 'fussballtipp-android'
-// include ':app'
+include ':app'
 include ':lib'

@@ -1,4 +1,5 @@
-/*
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 Copyright 2018 Hermann Krumrey <hermann@krumreyh.com>
 
 This file is part of fussballtipp-android.
@@ -15,27 +16,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-apply from: "$rootDir/gradle-config/version.gradle"
-
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        //noinspection DifferentKotlinGradleVersion
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
-        classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
+-->
+<resources>
+    <string name="app_name">Fussball-Tipp</string>
+</resources>
