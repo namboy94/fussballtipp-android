@@ -19,10 +19,21 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 
 package net.namibsun.fussballtipp.lib.objects
 
+import net.namibsun.fussballtipp.lib.auth.Session
+
 /**
  * Class that models a match
  * @param id: The ID of the match in the fussball-tipp.eu website
  * @param homeTeam: The team classified as the home team
  * @param awayTeam: The team classified as the away team
  */
-data class Match(private val id: Int, private val homeTeam: Team, private val awayTeam: Team)
+data class Match(private val id: Int, private val homeTeam: Team, private val awayTeam: Team) {
+
+    fun placeBet(session: Session, homeScore: Int, awayScore: Int) {
+        session.post("https://fussball-tipp.eu/bet.php", hashMapOf(
+                "id" to this.id.toString(),
+                "home-bet" to homeScore.toString(),
+                "away-bet" to awayScore.toString()
+        ))
+    }
+}

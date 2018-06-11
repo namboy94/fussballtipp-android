@@ -17,13 +17,9 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'net.namibsun.fussballtipp.lib.MainKt'
-    }
-    from {
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-}
+package net.namibsun.fussballtipp.lib.exceptions
+
+/**
+ * Exception thrown whenever a login failed due to incorrect credentials
+ */
+class AuthenticationException(username: String) : Exception(username)

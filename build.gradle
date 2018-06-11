@@ -47,6 +47,8 @@ subprojects {
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.41"
+        compile "org.apache.httpcomponents:httpclient:4.5"
+        compile 'org.jsoup:jsoup:1.11.3'
     }
 
     apply from: "$rootDir/gradle-config/jacoco.gradle"
