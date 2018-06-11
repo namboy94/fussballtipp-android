@@ -17,7 +17,11 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+apply plugin: 'org.jetbrains.dokka'
 
-rootProject.name = 'fussballtipp-android'
-// include ':app'
-include ':lib'
+dokka {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/javadoc"
+    skipEmptyPackages = true
+    noStdlibLink = true
+}
