@@ -19,4 +19,14 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
     <string name="app_name">Fussball-Tipp</string>
+
+    <string name="login_screen_title">Anmelden</string>
+    <string name="login_screen_username">Nutzername</string>
+    <string name="login_screen_password">Passwort</string>
+    <string name="login_screen_remember_me">Daten merken?</string>
+    <string name="login_screen_button_title">Anmelden</string>
+    <string name="login_screen_logo_description">Das Logo der App</string>
+    <string name="login_error_title">Anmelden fehlgeschlagen</string>
+    <string name="login_error_body">Falscher Nutzername oder falsches Passwort angegeben</string>
+    <string name="no_account_button_title">Kein Account?</string>
 </resources>
