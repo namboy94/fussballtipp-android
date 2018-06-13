@@ -45,11 +45,11 @@ class TestMatchFetching {
         val match = matches[0]
         assertEquals(match.homeTeam, Team(
                 "Russland",
-                "https://fussball-tipp.eu/resources/flags/rus.svg"
+                "http://flags.fmcdn.net/data/flags/h80/ru.png"
         ))
         assertEquals(match.awayTeam, Team(
                 "Saudi-Arabien",
-                "https://fussball-tipp.eu/resources/flags/ksa.svg"
+                "http://flags.fmcdn.net/data/flags/h80/sa.png"
         ))
         // Bet should be 2:1
         assertEquals(match.homeTeamBet, 2)
