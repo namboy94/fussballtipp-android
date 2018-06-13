@@ -18,13 +18,22 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 apply plugin: "kotlin"
-jar {}
+jar {manifest {
+    attributes 'Main-Class': 'net.namibsun.fussballtipp.lib.MainKt'
+}
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.41"
     compile "org.apache.httpcomponents:httpclient:4.5"
     compile "org.jsoup:jsoup:1.11.3"
     compile "com.squareup.okhttp3:okhttp:3.10.0"
+    compile "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
 }
 
 apply from: "$rootDir/gradle-config/dokka.gradle"

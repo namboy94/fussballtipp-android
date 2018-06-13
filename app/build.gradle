@@ -23,6 +23,7 @@ apply plugin: "kotlin-android"
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
+    useLibrary "org.apache.http.legacy"
     defaultConfig {
         applicationId "net.namibsun.fussballtipp.android"
         minSdkVersion 21
@@ -39,7 +40,6 @@ android {
     packagingOptions {
         exclude 'META-INF/*'
     }
-    useLibrary 'org.apache.http.legacy'
 }
 
 // Ignore lint errors for these libraries

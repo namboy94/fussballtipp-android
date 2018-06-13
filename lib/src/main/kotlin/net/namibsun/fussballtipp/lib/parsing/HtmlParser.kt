@@ -45,15 +45,21 @@ class HtmlParser(private val session: Session) {
             val homeFlag = "https://fussball-tipp.eu/" + flags[0].attr("src")
             val awayFlag = "https://fussball-tipp.eu/" + flags[1].attr("src")
 
-            val bet = matchData.getElementsByClass("bet")
-            // TODO Get bets
+            val bet = matchData.getElementsByClass("bet")[0].text()
+
+            val bets = if (bet.contains("Tipp abgeben!")) { // No bet yet!
+                Pair(null, null)
+            } else {
+                val components = bet.split("Dein Tipp: ")[1].split("-")
+                Pair(components[0].toInt(), components[1].toInt())
+            }
 
             matches.add(Match(
                     matchId,
                     Team(homeTeam, homeFlag),
                     Team(awayTeam, awayFlag),
-                    0,
-                    0
+                    bets.first,
+                    bets.second
             ))
         }
         return matches

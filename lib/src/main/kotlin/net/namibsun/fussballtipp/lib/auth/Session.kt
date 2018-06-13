@@ -22,14 +22,9 @@ package net.namibsun.fussballtipp.lib.auth
 import net.namibsun.fussballtipp.lib.exceptions.AuthenticationException
 import net.namibsun.fussballtipp.lib.objects.Match
 import net.namibsun.fussballtipp.lib.parsing.HtmlParser
-import org.apache.http.NameValuePair
-import org.apache.http.client.entity.UrlEncodedFormEntity
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.methods.HttpPost
-import org.apache.http.impl.client.HttpClients
-import org.apache.http.message.BasicNameValuePair
-import org.apache.http.util.EntityUtils
-import java.util.ArrayList
+import okhttp3.OkHttpClient
+import okhttp3.FormBody
+import okhttp3.Request
 
 /**
  * Class that handles all website access. The internals of this class should be
@@ -42,7 +37,7 @@ class Session(private val username: String, private val password: String) {
     /**
      * The internal HTTP client
      */
-    private val client = HttpClients.createDefault()
+    private val client = OkHttpClient.Builder().cookieJar(CookieHandler()).build()
 
     /**
      * Tries to log in using the username and password provided in the constructor
@@ -60,7 +55,7 @@ class Session(private val username: String, private val password: String) {
      */
     private fun login() {
         this.post("https://fussball-tipp.eu/login", hashMapOf(
-            "login-btn" to null,
+            "login-btn" to "",
                 "username" to this.username,
                 "password" to this.password
         ))
@@ -81,8 +76,9 @@ class Session(private val username: String, private val password: String) {
      * @return The response body
      */
     fun get(url: String): String {
-        val entity = this.client.execute(HttpGet(url)).entity
-        return EntityUtils.toString(entity, "UTF-8")
+        val request = Request.Builder().url(url).build()
+        val response = this.client.newCall(request).execute()
+        return response.body()!!.string()
     }
 
     /**
@@ -90,13 +86,14 @@ class Session(private val username: String, private val password: String) {
      * @param url: The URL to send the request to
      * @param params: The parameters to send in the POST request
      */
-    fun post(url: String, params: HashMap<String, String?>) {
-        val postRequest = HttpPost(url)
-        val postParameters = params.keys.mapTo(ArrayList<NameValuePair>()) {
-            BasicNameValuePair(it, params[it])
+    fun post(url: String, params: HashMap<String, String>) {
+
+        var formBuilder = FormBody.Builder()
+        for (key in params.keys) {
+            formBuilder = formBuilder.add(key, params[key]!!)
         }
-        postRequest.entity = UrlEncodedFormEntity(postParameters, "UTF-8")
-        this.client.execute(postRequest)
+        val request = Request.Builder().url(url).post(formBuilder.build()).build()
+        this.client.newCall(request).execute()
     }
 
     /**

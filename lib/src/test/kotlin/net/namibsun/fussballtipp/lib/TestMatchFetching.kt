@@ -20,12 +20,9 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 package net.namibsun.fussballtipp.lib
 
 import net.namibsun.fussballtipp.lib.auth.Session
-import net.namibsun.fussballtipp.lib.exceptions.AuthenticationException
 import net.namibsun.fussballtipp.lib.objects.Team
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
-import kotlin.test.fail
 
 /**
  * A class that tests fetching matches
@@ -44,9 +41,18 @@ class TestMatchFetching {
         )
         val matches = session.getMatches()
 
-        assertEquals(
-                matches[0].homeTeam,
-                Team("Russland", "https://fussball-tipp.eu/resources/flags/rus.svg")
-        )
+        // Test by looking at Russia-Saudi Arabia
+        val match = matches[0]
+        assertEquals(match.homeTeam, Team(
+                "Russland",
+                "https://fussball-tipp.eu/resources/flags/rus.svg"
+        ))
+        assertEquals(match.awayTeam, Team(
+                "Saudi-Arabien",
+                "https://fussball-tipp.eu/resources/flags/ksa.svg"
+        ))
+        // Bet should be 2:1
+        assertEquals(match.homeTeamBet, 2)
+        assertEquals(match.awayTeamBet, 1)
     }
 }
