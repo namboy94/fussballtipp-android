@@ -19,10 +19,10 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 
 package net.namibsun.fussballtipp.android.activities
 
+import android.app.Activity
 import net.namibsun.fussballtipp.lib.auth.Session
 import net.namibsun.fussballtipp.android.R
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -41,12 +41,7 @@ import net.namibsun.fussballtipp.android.global.SessionSingleton
  * website using a username and password, which will be prompted during the login process.
  * Credentials can be stored locally on the device.
  */
-class LoginActivity : AppCompatActivity() {
-
-    /**
-     * Shared preferences
-     */
-    private val prefs = this.getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE)!!
+class LoginActivity : Activity() {
 
     /**
      * Initializes the Login Activity. Sets the OnClickListener of the
@@ -60,8 +55,9 @@ class LoginActivity : AppCompatActivity() {
         this.findViewById<View>(R.id.login_screen_button).setOnClickListener { this.login() }
         this.findViewById<View>(R.id.login_screen_logo).setOnClickListener { this.login() }
 
-        val username = this.prefs.getString("username", "")
-        val password = this.prefs.getString("password", "")
+        val prefs = this.getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE)!!
+        val username = prefs.getString("username", "")
+        val password = prefs.getString("password", "")
         this.findViewById<EditText>(R.id.login_screen_username).setText(username)
         this.findViewById<EditText>(R.id.login_screen_password).setText(password)
 
@@ -81,8 +77,6 @@ class LoginActivity : AppCompatActivity() {
         Log.i("LoginActivity", "$username trying to log in.")
 
         this.setUiElementEnabledState(false)
-        val animation = AnimationUtils.loadAnimation(this, R.anim.rotate)
-        this.findViewById<View>(R.id.login_screen_logo).startAnimation(animation)
 
         this@LoginActivity.doAsync {
             try {
@@ -95,7 +89,9 @@ class LoginActivity : AppCompatActivity() {
                 SessionSingleton.session = null
                 this@LoginActivity.runOnUiThread { this@LoginActivity.showLoginErrorDialog() }
             }
-            this@LoginActivity.setUiElementEnabledState(true)
+            this@LoginActivity.runOnUiThread {
+                this@LoginActivity.setUiElementEnabledState(true)
+            }
         }
     }
 
@@ -109,6 +105,13 @@ class LoginActivity : AppCompatActivity() {
         this.findViewById<View>(R.id.login_screen_username).isEnabled = state
         this.findViewById<View>(R.id.login_screen_password).isEnabled = state
         this.findViewById<View>(R.id.login_screen_remember).isEnabled = state
+
+        if (state) { // Activate UI elements
+            findViewById<View>(R.id.login_screen_logo).clearAnimation()
+        } else {
+            val animation = AnimationUtils.loadAnimation(this, R.anim.rotate)
+            this.findViewById<View>(R.id.login_screen_logo).startAnimation(animation)
+        }
     }
 
     /**
@@ -119,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun storeCredentials(username: String, password: String) {
         if (this.findViewById<CheckBox>(R.id.login_screen_remember).isChecked) {
-            val editor = this.prefs.edit()
+            val editor = this.getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE)!!.edit()
             editor.putString("username", username)
             editor.putString("password", password)
             editor.apply()

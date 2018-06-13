@@ -19,19 +19,34 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 
 package net.namibsun.fussballtipp.lib
 
+import net.namibsun.fussballtipp.lib.auth.Session
+import net.namibsun.fussballtipp.lib.exceptions.AuthenticationException
+import net.namibsun.fussballtipp.lib.objects.Team
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 /**
- * A Dummy unittest class
+ * A class that tests fetching matches
  */
-class DummyTest {
+class TestMatchFetching {
 
     /**
-     * A dummy unit test
+     * Tests fetching matches.
+     * May stop working once the tournament advances
      */
     @Test
-    fun dummyTest() {
-        assertEquals(0, 0)
+    fun testFetchMatches() {
+        val session = Session(
+                System.getenv("FUSSBALLTIPP_USERNAME"),
+                System.getenv("FUSSBALLTIPP_PASSWORD")
+        )
+        val matches = session.getMatches()
+
+        assertEquals(
+                matches[0].homeTeam,
+                Team("Russland", "https://fussball-tipp.eu/resources/flags/rus.svg")
+        )
     }
 }

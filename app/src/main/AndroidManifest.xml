@@ -35,5 +35,8 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.BetActivity"
+            android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>

@@ -24,4 +24,4 @@ package net.namibsun.fussballtipp.lib.objects
  * @param name: The name of the team
  * @param flagUrl: URL to the team's flag
  */
-data class Team(private val name: String, private val flagUrl: String)
+data class Team(val name: String, val flagUrl: String)

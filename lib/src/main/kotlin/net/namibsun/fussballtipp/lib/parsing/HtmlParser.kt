@@ -45,7 +45,16 @@ class HtmlParser(private val session: Session) {
             val homeFlag = "https://fussball-tipp.eu/" + flags[0].attr("src")
             val awayFlag = "https://fussball-tipp.eu/" + flags[1].attr("src")
 
-            matches.add(Match(matchId, Team(homeTeam, homeFlag), Team(awayTeam, awayFlag)))
+            val bet = matchData.getElementsByClass("bet")
+            // TODO Get bets
+
+            matches.add(Match(
+                    matchId,
+                    Team(homeTeam, homeFlag),
+                    Team(awayTeam, awayFlag),
+                    0,
+                    0
+            ))
         }
         return matches
     }

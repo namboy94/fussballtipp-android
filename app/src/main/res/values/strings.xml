@@ -29,4 +29,12 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
     <string name="login_error_title">Login Failed</string>
     <string name="login_error_body">Wrong username or password</string>
     <string name="no_account_button_title">No Account?</string>
+
+    <string name="bets_title">Match Plan</string>
+    <string name="bets_submit_button">Set bets</string>
+
+    <string name="bet_home_edit_hint">Text Field for the home team bet</string>
+    <string name="bet_home_team_flag_description">The home team flag</string>
+    <string name="bet_away_team_flag_description">The away team flag</string>
+    <string name="bet_away_edit_hint">Text Field for the away team bet</string>
 </resources>

@@ -17,13 +17,40 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.fussballtipp.android.global
+package net.namibsun.fussballtipp.lib
 
 import net.namibsun.fussballtipp.lib.auth.Session
+import net.namibsun.fussballtipp.lib.exceptions.AuthenticationException
+import org.junit.Test
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 /**
- * Singleton that stores the session with which to access fussball-tipp.eu
+ * A class that tests logging in on fussball-tipp.eu
  */
-object SessionSingleton {
-    var session: Session? = null
+class TestLogin {
+
+    /**
+     * Tests logging in
+     */
+    @Test
+    fun testLoggingIn() {
+        val session = Session(
+                System.getenv("FUSSBALLTIPP_USERNAME"),
+                System.getenv("FUSSBALLTIPP_PASSWORD")
+        )
+        assertTrue(session.isLoggedIn())
+    }
+
+    /**
+     * Tests using invalid credentials
+     */
+    @Test
+    fun testInvalidLogin() {
+        try {
+            Session(System.getenv("FUSSBALLTIPP_USERNAME"), "")
+            fail()
+        } catch (e: AuthenticationException) {
+        }
+    }
 }

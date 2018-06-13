@@ -27,7 +27,13 @@ import net.namibsun.fussballtipp.lib.auth.Session
  * @param homeTeam: The team classified as the home team
  * @param awayTeam: The team classified as the away team
  */
-data class Match(private val id: Int, private val homeTeam: Team, private val awayTeam: Team) {
+data class Match(
+    private val id: Int,
+    val homeTeam: Team,
+    val awayTeam: Team,
+    val homeTeamBet: Int?,
+    val awayTeamBet: Int?
+) {
 
     fun placeBet(session: Session, homeScore: Int, awayScore: Int) {
         session.post("https://fussball-tipp.eu/bet.php", hashMapOf(
