@@ -42,8 +42,6 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
                 android:text="@string/login_screen_title"
                 android:gravity="center"
                 android:layout_marginBottom="5dp"
-                android:background="@color/title_bg"
-                android:textColor="@color/title_text"
                 android:textSize="40sp"/>
 
             <EditText
@@ -83,8 +81,6 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
                     android:id="@+id/login_screen_register_button"
                     android:layout_height="wrap_content"
                     android:text="@string/no_account_button_title"
-                    android:background="@color/button_bg"
-                    android:textColor="@color/button_text"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
@@ -98,8 +94,6 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/login_screen_button_title"
-                    android:background="@color/button_bg"
-                    android:textColor="@color/button_text"
                     android:gravity="center"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_horizontal"
@@ -115,7 +109,6 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/grass"
         android:layout_below="@+id/login_screen_card">
 
         <ImageView

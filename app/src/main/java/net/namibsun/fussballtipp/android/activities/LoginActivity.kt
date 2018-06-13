@@ -26,7 +26,7 @@ import android.os.Bundle
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AlertDialog
+import android.app.AlertDialog
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -61,7 +61,7 @@ class LoginActivity : Activity() {
         this.findViewById<EditText>(R.id.login_screen_username).setText(username)
         this.findViewById<EditText>(R.id.login_screen_password).setText(password)
 
-        this.findViewById<View>(R.id.login_screen_button).setOnClickListener {
+        this.findViewById<View>(R.id.login_screen_register_button).setOnClickListener {
             val uri = Uri.parse("https://fussball-tipp.eu/loginpage?register")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             this.startActivity(intent)
@@ -133,7 +133,7 @@ class LoginActivity : Activity() {
      * Shows the bets activity
      */
     private fun showBetsActivity() {
-        this.startActivity(Intent(this, LoginActivity::class.java))
+        this.startActivity(Intent(this, BetActivity::class.java))
     }
 
     /**

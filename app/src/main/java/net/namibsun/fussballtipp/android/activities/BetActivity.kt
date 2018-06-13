@@ -39,16 +39,6 @@ class BetActivity : Activity() {
     private val betViews: MutableList<BetView> = mutableListOf()
 
     /**
-     * View that contains the individual bet views
-     */
-    private val betList = this.findViewById<LinearLayout>(R.id.bets_list)
-
-    /**
-     * A progress spinner
-     */
-    private val progress = findViewById<View>(R.id.bets_progress)
-
-    /**
      * Initializes the Activity. Sets the OnClickListeners for the bet button and starts
      * fetching bet and match data asynchronously.
      * @param savedInstanceState: The Instance Information of the app.
@@ -84,8 +74,8 @@ class BetActivity : Activity() {
      * and sets the progress spinner's visibility to VISIBLE
      */
     private fun startNetwork() {
-        this.betList.removeAllViews()
-        this.progress.visibility = View.VISIBLE
+        this.findViewById<LinearLayout>(R.id.bets_list).removeAllViews()
+        findViewById<View>(R.id.bets_progress).visibility = View.VISIBLE
     }
 
     /**
@@ -93,9 +83,9 @@ class BetActivity : Activity() {
      */
     private fun renderBets() {
         for (betView in this.betViews) {
-            this.betList.addView(betView)
+            this.findViewById<LinearLayout>(R.id.bets_list).addView(betView)
         }
-        this.progress.visibility = View.INVISIBLE
+        findViewById<View>(R.id.bets_progress).visibility = View.INVISIBLE
     }
 
     /**
@@ -106,6 +96,9 @@ class BetActivity : Activity() {
         this@BetActivity.doAsync {
             for (betView in this@BetActivity.betViews) {
                 betView.placeBet()
+            }
+            this@BetActivity.runOnUiThread {
+                this@BetActivity.renderBets()
             }
         }
     }

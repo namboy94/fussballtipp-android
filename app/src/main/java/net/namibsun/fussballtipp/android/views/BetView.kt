@@ -83,10 +83,16 @@ class BetView(
      * Places the currently set bet values
      */
     fun placeBet() {
-        val homeBet = this.findViewById<EditText>(R.id.bet_home_team_edit).text.toString().toInt()
-        val awayBet = this.findViewById<EditText>(R.id.bet_away_team_edit).text.toString().toInt()
-        if (this.match.homeTeamBet != homeBet || this.match.awayTeamBet != awayBet) {
-            this.match.placeBet(SessionSingleton.session!!, homeBet, awayBet)
+        try {
+            val homeBet =
+                    this.findViewById<EditText>(R.id.bet_home_team_edit).text.toString().toInt()
+            val awayBet =
+                    this.findViewById<EditText>(R.id.bet_away_team_edit).text.toString().toInt()
+            if (this.match.homeTeamBet != homeBet || this.match.awayTeamBet != awayBet) {
+                this.match.placeBet(SessionSingleton.session!!, homeBet, awayBet)
+            }
+        } catch (e: NumberFormatException) {
+            // Skip when input can't be parsed as integers
         }
     }
 }

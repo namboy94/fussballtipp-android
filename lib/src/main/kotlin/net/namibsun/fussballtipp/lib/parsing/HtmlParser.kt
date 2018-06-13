@@ -42,8 +42,8 @@ class HtmlParser(private val session: Session) {
             val homeTeam = matchData.getElementsByClass("text-right")[0].text()
             val awayTeam = matchData.getElementsByClass("text-left")[0].text()
             val flags = matchData.getElementsByClass("img-fluid")
-            val homeFlag = "https://fussball-tipp.eu/" + flags[0].attr("src")
-            val awayFlag = "https://fussball-tipp.eu/" + flags[1].attr("src")
+            val homeFlag = this.mapSvgFlagUrlToPngFlagUrl(flags[0].attr("src"))
+            val awayFlag = this.mapSvgFlagUrlToPngFlagUrl(flags[1].attr("src"))
 
             val bet = matchData.getElementsByClass("bet")[0].text()
 
@@ -63,5 +63,56 @@ class HtmlParser(private val session: Session) {
             ))
         }
         return matches
+    }
+
+    /**
+     * Maps an SVG Url for a countries' flag to a PNG file
+     * @param flagUrl: The SVG Url
+     * @return The PNG URL
+     */
+    private fun mapSvgFlagUrlToPngFlagUrl(flagUrl: String): String {
+
+        val countryCode = flagUrl.split("/flags/")[1].split(".svg")[0]
+        val newCode = hashMapOf(
+                "rus" to "ru",
+                "ksa" to "sa",
+                "egy" to "eg",
+                "uru" to "uy",
+                "mar" to "ma",
+                "irn" to "ir",
+                "por" to "pt",
+                "esp" to "es",
+                "fra" to "fr",
+                "aus" to "au",
+                "arg" to "ar",
+                "isl" to "is",
+                "per" to "pe",
+                "den" to "dk",
+                "cro" to "hr",
+                "nga" to "ng",
+                "crc" to "cr",
+                "srb" to "rs",
+                "ger" to "de",
+                "mex" to "mx",
+                "bra" to "br",
+                "sui" to "ch",
+                "swe" to "se",
+                "kor" to "kr",
+                "bel" to "be",
+                "pan" to "pa",
+                "tun" to "tn",
+                "eng" to "ENGLAND",
+                "col" to "co",
+                "jpn" to "jp",
+                "pol" to "pl",
+                "sen" to "sn"
+        )[countryCode]
+
+        return if (newCode == "ENGLAND") {
+            "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/" +
+                    "Flag_of_England.svg/320px-Flag_of_England.svg.png"
+        } else {
+            "http://flags.fmcdn.net/data/flags/h80/$newCode.png"
+        }
     }
 }
