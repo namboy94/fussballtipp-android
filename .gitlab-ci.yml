@@ -97,4 +97,4 @@ upload_play_store:
     - python3
   script:
     - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
-    - play-upload net.namibsun.fussballtipp production
+    - play-upload net.namibsun.fussballtipp.android production
