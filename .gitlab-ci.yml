@@ -93,7 +93,6 @@ upload_play_store:
   stage: release
   only:
     - master
-    - develop
   tags:
     - python3
   script:
