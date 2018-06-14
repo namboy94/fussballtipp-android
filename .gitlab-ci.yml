@@ -93,8 +93,9 @@ upload_play_store:
   stage: release
   only:
     - master
+    - develop
   tags:
     - python3
   script:
     - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
-    - play-upload net.namibsun.fussballtipp production
+    - play-upload net.namibsun.fussballtipp.android production
