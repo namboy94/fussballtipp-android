@@ -1,6 +1,8 @@
 # fussballtipp-android
 
-[![pipeline status](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/badges/master/pipeline.svg)](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android/commits/master)
+|master|develop|
+|:----:|:-----:|
+|[![build status](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/badges/master/build.svg)](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/commits/master)|[![build status](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/badges/develop/build.svg)](https://gitlab.namibsun.net/namibsun/android/fussballtipp-android/commits/develop)|
 
 ![Logo](resources/logo/logo-readme.png)
 
@@ -13,3 +15,5 @@ This is an Android client for fussball-tipp.eu.
 * [Gitlab](https://gitlab.namibsun.net/namibsun/museum/fussballtipp-android)
 * [Github](https://github.com/namboy94/fussballtipp-android)
 * [Progstats](https://progstats.namibsun.net/projects/fussballtipp-android)
+* [Play Store Entry](https://play.google.com/store/apps/details?id=net.namibsun.fussballtipp.android)
+* [Privacy Statement](resources/privacy_statement.txt)

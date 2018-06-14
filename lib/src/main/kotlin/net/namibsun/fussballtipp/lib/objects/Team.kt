@@ -17,25 +17,11 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-apply from: "$rootDir/gradle-config/version.gradle"
+package net.namibsun.fussballtipp.lib.objects
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        //noinspection DifferentKotlinGradleVersion
-        classpath 'com.android.tools.build:gradle:3.1.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
+/**
+ * Class that models a team
+ * @param name: The name of the team
+ * @param flagUrl: URL to the team's flag
+ */
+data class Team(val name: String, val flagUrl: String)

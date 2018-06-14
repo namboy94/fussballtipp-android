@@ -17,25 +17,21 @@ You should have received a copy of the GNU General Public License
 along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-apply from: "$rootDir/gradle-config/version.gradle"
+package net.namibsun.fussballtipp.lib
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        //noinspection DifferentKotlinGradleVersion
-        classpath 'com.android.tools.build:gradle:3.1.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
-    }
-}
+import org.junit.Test
+import kotlin.test.assertEquals
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
+/**
+ * A Dummy unittest class
+ */
+class DummyTest {
+
+    /**
+     * A dummy unit test
+     */
+    @Test
+    fun dummyTest() {
+        assertEquals(0, 0)
     }
 }

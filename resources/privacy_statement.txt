@@ -1,0 +1,9 @@
+DE:
+
+Diese App speichert auf Wunsch den Benutzernamen und das Passwort des Nutzers auf
+der Webseite https://fussball-tipp.eu.
+
+EN:
+
+This App saves, if requested, the username and password of the user on the website
+https://fussball-tipp.eu.

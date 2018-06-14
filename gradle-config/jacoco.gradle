@@ -20,7 +20,7 @@ along with fussballtipp-android.  If not, see <http://www.gnu.org/licenses/>.
 apply plugin: 'jacoco'
 
 dependencies {
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.1.51"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.2.41"
 }
 
 jacocoTestReport {
